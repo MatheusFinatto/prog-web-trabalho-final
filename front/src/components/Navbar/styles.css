@@ -1,0 +1,23 @@
+nav {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #222;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  > div {
+    margin: 0 70px;
+    > a {
+      text-decoration: none;
+      color: white;
+    }
+  }
+  > div:first-child {
+    font-size: 1.5rem;
+  }
+  > div:last-child {
+    display: flex;
+    gap: 30px;
+  }
+}

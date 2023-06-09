@@ -1,0 +1,152 @@
+openapi: 3.0.0
+info:
+  title: To-Do List API
+  description: API para gerenciar tarefas de uma lista de afazeres
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/api
+paths:
+  /register:
+    post:
+      summary: Cria um novo usuário
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "201":
+          description: Usuário criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  username:
+                    type: string
+                  token:
+                    type: string
+        "400":
+          description: Requisição inválida
+
+  /login:
+    post:
+      summary: Efetua o login do usuário
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: Login bem-sucedido
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        "401":
+          description: Credenciais inválidas
+
+  /todos:
+    get:
+      summary: Obtém a lista de tarefas do usuário
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Lista de tarefas obtida com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Todo"
+    post:
+      summary: Adiciona uma nova tarefa à lista
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Todo"
+      responses:
+        "201":
+          description: Tarefa adicionada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Todo"
+
+  /todos/{id}:
+    put:
+      summary: Atualiza uma tarefa existente
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: ID da tarefa a ser atualizada
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Todo"
+      responses:
+        "200":
+          description: Tarefa atualizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Todo"
+        "404":
+          description: Tarefa não encontrada
+
+    delete:
+      summary: Remove uma tarefa da lista
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: ID da tarefa a ser removida
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Tarefa removida com sucesso
+        "404":
+          description: Tarefa não encontrada
+
+components:
+  schemas:
+    Todo:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        completed:
+          type: boolean

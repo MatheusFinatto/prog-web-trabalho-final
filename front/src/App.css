@@ -1,0 +1,62 @@
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.todo-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  > li {
+    transition: 0.5s;
+    display: flex;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    gap: 50px;
+    min-width: 500px;
+
+    > div {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      > button {
+        transition: 0.5s;
+        border: none;
+        padding: 1px;
+        font-size: 1.2rem;
+        padding: 8px 8px 2px 8px;
+      }
+
+      > button:first-child:hover {
+        color: rgb(0, 200, 0);
+      }
+
+      > button:nth-child(2):hover {
+        color: rgb(255, 255, 0);
+      }
+
+      > button:last-child:hover {
+        color: rgb(255, 0, 0);
+      }
+    }
+  }
+  > li:hover {
+    border: 1px solid #777;
+  }
+}
+
+form input {
+  width: 500px;
+  padding: 5px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+}
