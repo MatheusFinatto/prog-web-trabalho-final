@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import "./styles.css";
 
+import { useUserContext } from "../../contexts/UserContext";
+
 interface FormProps {
   text: string;
 }
@@ -12,6 +14,7 @@ const UserForm: React.FC<FormProps> = ({ text }) => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const { updateUser } = useUserContext();
 
   const validateForm = (): boolean => {
     if (text === "Register" && !emailIsValid(email)) {
@@ -58,16 +61,16 @@ const UserForm: React.FC<FormProps> = ({ text }) => {
         if (!res.ok) {
           throw new Error("Unknown error");
         }
-
         const { token } = await res.json();
-
         localStorage.setItem("token", token);
-        setUsername("");
-        setEmail("");
-        setPassword("");
+        updateUser(username);
       } catch (err) {
         setError("An unexpected error has occurred. Please try again later.");
         console.log(err);
+      } finally {
+        setUsername("");
+        setEmail("");
+        setPassword("");
       }
     }
   };
