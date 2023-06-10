@@ -1,5 +1,7 @@
+import UserForm from "../components/UserForm";
+
 const Login = () => {
-  return <div>Login</div>;
+  return <UserForm text="Login" />;
 };
 
 export default Login;

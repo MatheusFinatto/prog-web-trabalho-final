@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { dbType } from "../../pages/Main";
-import { useNavigate } from "react-router-dom";
 
 interface FormProps {
   db: dbType[];
@@ -8,7 +7,6 @@ interface FormProps {
 }
 
 const Form = ({ db, setDb }: FormProps) => {
-  const navigate = useNavigate();
   const [todo, setTodo] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -24,7 +22,7 @@ const Form = ({ db, setDb }: FormProps) => {
   };
 
   return (
-    <form onSubmit={(e) => handleSubmit(e)}>
+    <form onSubmit={(e) => handleSubmit(e)} className="todoForm">
       <input
         type="text"
         onChange={(e) => setTodo(e.target.value)}

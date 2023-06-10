@@ -52,11 +52,3 @@
     border: 1px solid #777;
   }
 }
-
-form input {
-  width: 500px;
-  padding: 5px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 5px;
-}
