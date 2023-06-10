@@ -2,10 +2,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ReactDOM from "react-dom/client";
 
 import "./index.css";
-import Login from "./pages/Login";
-import Main from "./pages/Main";
+import Login from "./pages/User/Login";
+import Main from "./pages/TodoList/Main";
 import Navbar from "./components/Navbar";
-import Register from "./pages/Register";
+import Register from "./pages/User/Register";
 import { UserProvider } from "./contexts/UserContext";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(

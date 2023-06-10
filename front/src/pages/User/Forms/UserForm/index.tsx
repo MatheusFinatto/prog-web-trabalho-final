@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import "./styles.css";
 
-import { useUserContext } from "../../contexts/UserContext";
+import { useUserContext } from "../../../../contexts/UserContext";
+import validateForm from "../../../../helpers/validateForm";
 
 interface FormProps {
   text: string;
@@ -16,35 +17,10 @@ const UserForm: React.FC<FormProps> = ({ text }) => {
   const [error, setError] = useState("");
   const { updateUser } = useUserContext();
 
-  const validateForm = (): boolean => {
-    if (text === "Register" && !emailIsValid(email)) {
-      setError("Please enter a valid email address");
-      return false;
-    }
-
-    if (username.trim() === "") {
-      setError("Please enter a username");
-      return false;
-    }
-
-    if (password.length < 6) {
-      setError("Password should be at least 6 characters long");
-      return false;
-    }
-
-    setError("");
-    return true;
-  };
-
-  const emailIsValid = (email: string): boolean => {
-    const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-    return emailRegex.test(email);
-  };
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(""); // Clear previous errors
-    if (validateForm()) {
+    if (validateForm({ username, email, password, setError, text })) {
       try {
         const res = await fetch("http://localhost:3001/api/register", {
           method: "POST",

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { dbType } from "../../pages/Main";
+import { dbType } from "../../Main";
 import "./styles.css";
 
 interface FormProps {

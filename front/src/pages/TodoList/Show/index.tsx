@@ -1,4 +1,4 @@
-import { dbType } from "../../pages/Main";
+import { dbType } from "../Main";
 import { AiOutlineEdit, AiOutlineCheck } from "react-icons/ai";
 import { GiSkullCrossedBones } from "react-icons/gi";
 
