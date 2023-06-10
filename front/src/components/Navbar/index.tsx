@@ -1,6 +1,5 @@
 import { NavLink } from "react-router-dom";
 import "./styles.css";
-import TodoList from "../../pages/TodoList/Show";
 
 const texto = "<TodoList />";
 
