@@ -3,7 +3,7 @@ nav {
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  padding: 1rem 0;
   background-color: #222;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   > div {
@@ -19,5 +19,15 @@ nav {
   > div:last-child {
     display: flex;
     gap: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  nav {
+    width: 100%;
+
+    > div {
+      margin: 0;
+    }
   }
 }

@@ -20,7 +20,7 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     gap: 50px;
-    min-width: 500px;
+    width: 500px;
 
     > div {
       display: flex;
@@ -50,5 +50,16 @@
   }
   > li:hover {
     border: 1px solid #777;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .todo-list {
+    width: 100%;
+  }
+
+  .todo-list li {
+    width: 95%;
+    padding: 1rem 10px;
   }
 }

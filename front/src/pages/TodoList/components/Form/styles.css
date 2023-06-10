@@ -5,3 +5,9 @@
   border: none;
   border-radius: 5px;
 }
+
+@media screen and (max-width: 768px) {
+  .todoForm input {
+    width: 100%;
+  }
+}
