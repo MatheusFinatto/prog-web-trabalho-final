@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../Show/App.css";
 import TodoList from "../Show";
-import Form from "../components/Form";
+import Form from "../Form";
 
 export type dbType = {
   id: number;

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import "./styles.css";
 
-import { useUserContext } from "../../../../contexts/UserContext";
-import validateForm from "../../../../helpers/validateForm";
+import { useUserContext } from "../../../contexts/UserContext";
+import validateForm from "../../../helpers/validateForm";
 
 interface FormProps {
   text: string;

@@ -1,4 +1,4 @@
-import UserForm from "./Forms/UserForm";
+import UserForm from "./Form";
 
 const Login = () => {
   return <UserForm text="Login" />;

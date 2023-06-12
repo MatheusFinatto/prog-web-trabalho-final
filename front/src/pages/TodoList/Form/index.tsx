@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { dbType } from "../../Main";
 import "./styles.css";
+import { dbType } from "../Main";
 
 interface FormProps {
   db: dbType[];
