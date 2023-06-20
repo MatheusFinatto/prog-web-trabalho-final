@@ -33,9 +33,6 @@ As pilhas de tecnologias alternativas consideradas foram:
 - Vue.js: O Vue.js é outro framework JavaScript popular que oferece funcionalidades semelhantes ao React. No entanto, escolhemos o React devido à sua comunidade maior e ecossistema mais rico, que está mais alinhado com nossos requisitos de projeto.
 - Jest: Uma biblioteca de testes de JavaScript amplamente adotada pela comunidade. Embora tenha sido considerada como uma opção alternativa, decidimos usar o Vitest devido à sua integração nativa com o Vite e ao seu desempenho superior, além de ser uma tecnologia nova.
 
-## Decisões Relacionadas
-[Faça referência a quaisquer decisões arquiteturais relacionadas que tenham sido tomadas no projeto. Se não houver dependências diretas de outras decisões, esta seção pode ser omitida.]
-
 ## Referências
 
 - Documentação do Vite: [https://vitejs.dev/](https://vitejs.dev/)
