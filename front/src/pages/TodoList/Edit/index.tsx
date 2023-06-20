@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import "./styles.css";
-import { dbType } from "../../pages/TodoList/Main";
+import { dbType } from "../Main";
 
 interface EditModalProps {
   item: dbType;

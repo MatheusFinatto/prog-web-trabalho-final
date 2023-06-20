@@ -1,7 +1,7 @@
 import { dbType } from "../Main";
 import { AiOutlineEdit, AiOutlineCheck } from "react-icons/ai";
 import { GiSkullCrossedBones } from "react-icons/gi";
-import EditModal from "../../../components/EditModal";
+import EditModal from "../Edit";
 import { useState } from "react";
 
 interface TodoListProps {
@@ -45,17 +45,21 @@ const TodoList = ({ db, setDb }: TodoListProps) => {
                 {item.title}
               </span>
               <div>
-                <button onClick={() => setTaskAsCompleted(item)}>
+                <button
+                  onClick={() => setTaskAsCompleted(item)}
+                  data-testid="check"
+                >
                   <AiOutlineCheck />
                 </button>
 
-                <button onClick={() => openEditModal(item)}>
+                <button onClick={() => openEditModal(item)} data-testid="edit">
                   <AiOutlineEdit />
                 </button>
                 <button
                   onClick={() =>
                     setDb(db.filter((dbItem) => dbItem.id !== item.id))
                   }
+                  data-testid="delete"
                 >
                   <GiSkullCrossedBones />
                 </button>
