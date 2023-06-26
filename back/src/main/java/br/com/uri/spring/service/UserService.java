@@ -37,7 +37,7 @@ public class UserService {
     }
 
     public ResponseEntity login(LoginDTO loginDTO) {
-        Optional<UserEntity> userEntity = UserRepository.findByUsername(loginDTO.getUsername());
+        Optional<UserEntity> userEntity = userRepository.findByUsername(loginDTO.getUsername());
         if (userEntity != null) {
             return new ResponseEntity("Logged",HttpStatus.OK);
         } else {
