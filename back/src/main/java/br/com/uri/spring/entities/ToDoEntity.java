@@ -20,5 +20,4 @@ public class ToDoEntity {
 
     @Column
     private Boolean completed;
-
 }
