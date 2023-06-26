@@ -1,24 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../Show/App.css";
 import TodoList from "../Show";
 import Form from "../Form";
 
 export type dbType = {
-  id: number;
+  id?: string;
   title: string;
   completed: boolean;
 };
 
 function Main() {
-  const [db, setDb] = useState<dbType[]>([
-    { id: 1, title: "Learn React", completed: true },
-    { id: 2, title: "Learn TypeScript", completed: false },
-    { id: 3, title: "Learn Redux", completed: false },
-    { id: 4, title: "Learn GraphQL", completed: true },
-    { id: 5, title: "Learn Next.js", completed: true },
-    { id: 6, title: "Learn Node.js", completed: false },
-    { id: 7, title: "Learn MongoDB", completed: false },
-  ]);
+  const [db, setDb] = useState<dbType[]>([]);
+
+  function fetchTodos() {
+    fetch("http://localhost:8080/v1/todos")
+      .then((res) => res.json())
+      .then((data) => setDb(data));
+  }
+
+  useEffect(() => {
+    fetchTodos();
+  }, []);
 
   return (
     <main className="App">
@@ -33,7 +35,7 @@ function Main() {
         * Please, <span style={{ color: "red" }}>do not</span> add "Gandalf" as
         a Todo.
       </p>
-      <Form db={db} setDb={setDb} />
+      <Form />
       <TodoList db={db} setDb={setDb} />
     </main>
   );

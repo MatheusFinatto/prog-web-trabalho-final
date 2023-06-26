@@ -3,6 +3,7 @@ import { AiOutlineEdit, AiOutlineCheck } from "react-icons/ai";
 import { GiSkullCrossedBones } from "react-icons/gi";
 import EditModal from "../Edit";
 import { useState } from "react";
+import useFetch from "../../../hooks/useFetch";
 
 interface TodoListProps {
   db: dbType[];
@@ -10,16 +11,17 @@ interface TodoListProps {
 }
 
 const TodoList = ({ db, setDb }: TodoListProps) => {
-  const [item, setItem] = useState<dbType>({
-    id: 0,
-    title: "",
-    completed: false,
-  });
+  const { loading, fetchData } = useFetch();
+  const [item, setItem] = useState<dbType>({ title: "", completed: false });
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+  const deleteTodo = (item: dbType) => {
+    fetchData(`http://localhost:8080/v1/todos/${item.id}`, "DELETE");
+  };
 
   const setTaskAsCompleted = (item: dbType) => {
     setDb(
-      db.map((dbItem) => {
+      db.map((dbItem: dbType) => {
         if (dbItem.id === item.id) {
           return { ...dbItem, completed: !dbItem.completed };
         }
@@ -33,6 +35,10 @@ const TodoList = ({ db, setDb }: TodoListProps) => {
     setIsEditModalOpen(true);
   };
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <ul className="todo-list">
@@ -40,7 +46,9 @@ const TodoList = ({ db, setDb }: TodoListProps) => {
           return (
             <li key={item.id}>
               <span
-                style={{ textDecoration: item.completed ? "line-through" : "" }}
+                style={{
+                  textDecoration: item.completed ? "line-through" : "",
+                }}
               >
                 {item.title}
               </span>
@@ -55,12 +63,7 @@ const TodoList = ({ db, setDb }: TodoListProps) => {
                 <button onClick={() => openEditModal(item)} data-testid="edit">
                   <AiOutlineEdit />
                 </button>
-                <button
-                  onClick={() =>
-                    setDb(db.filter((dbItem) => dbItem.id !== item.id))
-                  }
-                  data-testid="delete"
-                >
+                <button onClick={(e) => deleteTodo(item)} data-testid="delete">
                   <GiSkullCrossedBones />
                 </button>
               </div>

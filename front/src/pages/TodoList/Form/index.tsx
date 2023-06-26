@@ -2,36 +2,35 @@ import { useState } from "react";
 import "./styles.css";
 import { dbType } from "../Main";
 
-interface FormProps {
-  db: dbType[];
-  setDb: React.Dispatch<React.SetStateAction<dbType[]>>;
+function createTodo(todo: dbType) {
+  fetch("http://localhost:8080/v1/todos", {
+    method: "POST",
+    body: JSON.stringify(todo),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((res) => {
+    console.log(res);
+  });
 }
-export const handleSubmit = (
-  e: React.FormEvent,
-  todo: string,
-  db: dbType[],
-  setDb: React.Dispatch<React.SetStateAction<dbType[]>>,
-  setTodo: React.Dispatch<React.SetStateAction<string>>
-) => {
-  e.preventDefault();
 
-  if (todo.toLocaleLowerCase() === "gandalf") {
-    window.location.href = "https://www.youtube.com/watch?v=Sagg08DrO5U";
-  }
-  const newId = Math.max(...db.map((item) => item.id)) + 1;
-  const newTodo = { id: newId, title: todo, completed: false };
-  setDb([...db, newTodo]);
-  setTodo("");
-};
-
-const Form = ({ db, setDb }: FormProps) => {
+const Form = () => {
   const [todo, setTodo] = useState("");
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("hey");
+    if (todo.toLowerCase() === "gandalf") {
+      window.location.href = "https://www.youtube.com/watch?v=Sagg08DrO5U";
+    } else {
+      const newTodo = { title: todo, completed: false };
+      createTodo(newTodo);
+      setTodo(""); // Reset the input field after submitting
+    }
+  };
+
   return (
-    <form
-      onSubmit={(e) => handleSubmit(e, todo, db, setDb, setTodo)}
-      className="todoForm"
-    >
+    <form onSubmit={handleSubmit} className="todoForm">
       <input
         type="text"
         onChange={(e) => setTodo(e.target.value)}
@@ -39,7 +38,7 @@ const Form = ({ db, setDb }: FormProps) => {
         data-testid="todoInput"
         placeholder="Enter your todo"
       />
-      <button type="submit">Add</button>
+      <button>Add</button>
     </form>
   );
 };
