@@ -1,0 +1,12 @@
+br\com\uri\spring\repositories\UserRepository.class
+br\com\uri\spring\entities\UserEntity.class
+br\com\uri\spring\configuration\Config.class
+br\com\uri\spring\entities\ToDoEntity.class
+br\com\uri\spring\repositories\ToDoRepository.class
+br\com\uri\spring\service\UserService.class
+br\com\uri\spring\Application.class
+br\com\uri\spring\controller\ToDoController.class
+br\com\uri\spring\service\ToDoService.class
+br\com\uri\spring\dto\ToDoDTO.class
+br\com\uri\spring\controller\PingController.class
+br\com\uri\spring\dto\UserDTO.class

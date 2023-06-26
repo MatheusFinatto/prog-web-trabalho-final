@@ -14,4 +14,6 @@ public class ToDoDTO {
     private String title;
 
     private boolean completed;
+
+    private Integer user_id;
 }

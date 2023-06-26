@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface ToDoRepository extends JpaRepository<ToDoEntity, Long> {
 
-    Optional<ToDoEntity> findByName(String name);
+    Optional<ToDoEntity> findById(Integer id);
 
 }
