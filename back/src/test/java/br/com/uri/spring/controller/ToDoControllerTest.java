@@ -1,6 +1,5 @@
 package br.com.uri.spring.controller;
 
-import br.com.uri.spring.dto.UserDTO;
 import br.com.uri.spring.dto.ToDoDTO;
 import br.com.uri.spring.service.ToDoServiceTest;
 import com.fasterxml.jackson.databind.ObjectMapper;

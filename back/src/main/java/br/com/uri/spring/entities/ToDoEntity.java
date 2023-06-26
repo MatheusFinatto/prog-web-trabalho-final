@@ -15,7 +15,7 @@ public class ToDoEntity {
     @Column
     private String title;
 
-    @OneToOne
+    @Column
     private Integer user_id;
 
     @Column

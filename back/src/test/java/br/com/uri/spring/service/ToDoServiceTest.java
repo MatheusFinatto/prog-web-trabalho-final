@@ -1,6 +1,5 @@
 package br.com.uri.spring.service;
 
-import br.com.uri.spring.dto.UserDTO;
 import br.com.uri.spring.dto.ToDoDTO;
 import br.com.uri.spring.repositories.UserRepository;
 import br.com.uri.spring.repositories.ToDoRepository;

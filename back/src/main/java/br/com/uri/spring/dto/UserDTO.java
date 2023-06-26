@@ -3,17 +3,18 @@ package br.com.uri.spring.dto;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class UserDTO {
 
-    @NotBlank
+    @NotNull
     private String username;
 
-    @NotBlank
+    @NotNull
     private String email;
 
-    @NotBlank
+    @NotNull
     private String password;
 
 
