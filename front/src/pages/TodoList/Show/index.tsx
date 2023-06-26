@@ -2,24 +2,23 @@ import { dbType } from "../Main";
 import { AiOutlineEdit, AiOutlineCheck } from "react-icons/ai";
 import { GiSkullCrossedBones } from "react-icons/gi";
 import EditModal from "../Edit";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useFetch from "../../../hooks/useFetch";
 
-interface TodoListProps {
-  db: dbType[];
-  setDb: React.Dispatch<React.SetStateAction<dbType[]>>;
-}
-
-const TodoList = ({ db, setDb }: TodoListProps) => {
-  const { loading, fetchData } = useFetch();
+const TodoList = () => {
+  const { loading, fetchData, data } = useFetch();
   const [item, setItem] = useState<dbType>({ title: "", completed: false });
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+  useEffect(() => {
+    fetchData("http://localhost:8080/v1/todos", "GET");
+  }, []);
 
   const deleteTodo = (item: dbType) => {
     fetchData(`http://localhost:8080/v1/todos/${item.id}`, "DELETE");
   };
 
-  const setTaskAsCompleted = (item: dbType) => {
+  /*  const setTaskAsCompleted = (item: dbType) => {
     setDb(
       db.map((dbItem: dbType) => {
         if (dbItem.id === item.id) {
@@ -29,6 +28,7 @@ const TodoList = ({ db, setDb }: TodoListProps) => {
       })
     );
   };
+*/
 
   const openEditModal = (item: dbType) => {
     setItem(item);
@@ -42,7 +42,7 @@ const TodoList = ({ db, setDb }: TodoListProps) => {
   return (
     <>
       <ul className="todo-list">
-        {db.map((item) => {
+        {data.map((item) => {
           return (
             <li key={item.id}>
               <span
@@ -54,7 +54,7 @@ const TodoList = ({ db, setDb }: TodoListProps) => {
               </span>
               <div>
                 <button
-                  onClick={() => setTaskAsCompleted(item)}
+                  //onClick={() => setTaskAsCompleted(item)}
                   data-testid="check"
                 >
                   <AiOutlineCheck />
@@ -77,8 +77,7 @@ const TodoList = ({ db, setDb }: TodoListProps) => {
         setIsModalOpen={setIsEditModalOpen}
         item={item}
         setItem={setItem}
-        db={db}
-        setDb={setDb}
+        db={data}
       />
     </>
   );

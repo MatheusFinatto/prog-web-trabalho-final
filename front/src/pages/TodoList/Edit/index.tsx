@@ -8,11 +8,10 @@ interface EditModalProps {
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   db: dbType[];
-  setDb: React.Dispatch<React.SetStateAction<dbType[]>>;
 }
 
 const EditModal = (props: EditModalProps) => {
-  const { item, setItem, isModalOpen, setIsModalOpen, db, setDb } = props;
+  const { item, setItem, isModalOpen, setIsModalOpen, db } = props;
 
   useEffect(() => {
     const handleEscapeKey = (event: KeyboardEvent) => {
@@ -48,7 +47,7 @@ const EditModal = (props: EditModalProps) => {
         }
         return dbItem;
       });
-      setDb(updatedDb);
+      //setDb(updatedDb);
       alert(`${item.title} has been edited successfully!`);
       setIsModalOpen(false);
     }, 1000);

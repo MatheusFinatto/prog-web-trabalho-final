@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "../Show/App.css";
 import TodoList from "../Show";
 import Form from "../Form";
+import useFetch from "../../../hooks/useFetch";
 
 export type dbType = {
   id?: string;
@@ -10,18 +11,6 @@ export type dbType = {
 };
 
 function Main() {
-  const [db, setDb] = useState<dbType[]>([]);
-
-  function fetchTodos() {
-    fetch("http://localhost:8080/v1/todos")
-      .then((res) => res.json())
-      .then((data) => setDb(data));
-  }
-
-  useEffect(() => {
-    fetchTodos();
-  }, []);
-
   return (
     <main className="App">
       <h1>Todo List</h1>
@@ -36,7 +25,7 @@ function Main() {
         a Todo.
       </p>
       <Form />
-      <TodoList db={db} setDb={setDb} />
+      <TodoList />
     </main>
   );
 }

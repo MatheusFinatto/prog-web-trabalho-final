@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { dbType } from "../pages/TodoList/Main";
 
 const useFetch = () => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<dbType[]>([]);
   const [loading, setLoading] = useState(false);
 
   const fetchData = async (url: string, method = "GET", body = null) => {
