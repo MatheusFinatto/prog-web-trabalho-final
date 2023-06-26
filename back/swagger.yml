@@ -4,7 +4,7 @@ info:
   description: API para gerenciar tarefas de uma lista de afazeres
   version: 1.0.0
 servers:
-  - url: http://localhost:8080/api
+  - url: http://localhost:8080/v1
 paths:
   /register:
     post:
@@ -141,12 +141,25 @@ paths:
 
 components:
   schemas:
-    Todo:
+    Todos:
       type: object
       properties:
         id:
           type: integer
         title:
           type: string
+        user_id:
+          type: integer
         completed:
           type: boolean
+    Users:
+      type: object
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+        email:
+          type: string
+        password:
+          type: string

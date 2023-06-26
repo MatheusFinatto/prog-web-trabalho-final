@@ -1,0 +1,14 @@
+spring:
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    url: jdbc:postgresql://localhost:1234/todolist
+    username: localhost
+    password: root
+    driverClassName: org.postgresql.Driver
+  sql:
+    init:
+      platform: postgres

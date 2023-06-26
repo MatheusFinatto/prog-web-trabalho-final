@@ -1,0 +1,18 @@
+CREATE DATABASE todolist;
+
+CREATE TABLE users (
+	id SERIAL,
+	username VARCHAR(50) NOT NULL,
+	email VARCHAR(100) UNIQUE NOT NULL,
+	password VARCHAR(50) NOT NULL,
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE todos (
+	id SERIAL,
+	title VARCHAR(255) NOT NULL,
+	user_id INTEGER,
+	completed BOOLEAN,
+	PRIMARY KEY(id),
+	CONSTRAINT user_todo FOREIGN KEY(user_id) REFERENCES users(id)
+);
