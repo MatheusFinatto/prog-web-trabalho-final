@@ -83,7 +83,7 @@ public class UserServiceTest {
         loginDTO.setPassword("password");
 
         // Mock do UserRepository para retornar um objeto UserEntity ao buscar por username
-        when(userRepository.findByUsername("Luiz")).thenReturn(Optional.of(new UserEntity()));
+        when(userRepository.findByUsernameAndPassword("Luiz", "1234")).thenReturn(Optional.of(new UserEntity()));
 
         // Chama o método que você deseja testar
         ResponseEntity response = userService.login(loginDTO);
@@ -101,7 +101,7 @@ public class UserServiceTest {
         loginDTO.setPassword("password");
 
         // Mock do UserRepository para retornar Optional.empty() ao buscar por username
-        when(userRepository.findByUsername("Luiz")).thenReturn(Optional.empty());
+        when(userRepository.findByUsernameAndPassword("Luiz", "4321")).thenReturn(Optional.empty());
 
         // Chama o método que você deseja testar
         ResponseEntity response = userService.login(loginDTO);

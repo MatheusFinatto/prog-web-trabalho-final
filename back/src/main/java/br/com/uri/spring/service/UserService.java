@@ -37,8 +37,8 @@ public class UserService {
     }
 
     public ResponseEntity login(LoginDTO loginDTO) {
-        Optional<UserEntity> userEntity = userRepository.findByUsername(loginDTO.getUsername());
-        if (userEntity != null) {
+        Optional<UserEntity> userEntity = userRepository.findByUsernameAndPassword(loginDTO.getUsername(), loginDTO.getPassword());
+        if (userEntity.isPresent()) {
             return new ResponseEntity("Logged",HttpStatus.OK);
         } else {
             return new ResponseEntity("Username or password incorrect", HttpStatus.UNAUTHORIZED);
