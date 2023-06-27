@@ -21,8 +21,8 @@ public class ToDoService {
         this.todoRepository = todoRepository;
     }
 
-    public List<ToDoEntity> getAllTodos() {
-        return todoRepository.findAll();
+    public List<ToDoEntity> getAllTodos(Integer user_id) {
+        return todoRepository.findByUserId(user_id);
     }
 
     public ResponseEntity saveObject(ToDoDTO toDoDTO) {

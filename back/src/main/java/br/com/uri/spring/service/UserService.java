@@ -1,6 +1,7 @@
 package br.com.uri.spring.service;
 
 import br.com.uri.spring.dto.LoginDTO;
+import br.com.uri.spring.dto.UserResponseDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public ResponseEntity saveObject(UserDTO userDTO) {
+    public ResponseEntity<UserResponseDTO> saveObject(UserDTO userDTO) {
         UserEntity userEntity = new UserEntity();
 
         // Criar o usuário
@@ -30,16 +31,24 @@ public class UserService {
 
         userRepository.save(userEntity);
         if (userEntity != null){
-            return new ResponseEntity("Created",HttpStatus.CREATED);
+            UserResponseDTO responseDTO = new UserResponseDTO();
+            responseDTO.setMessage("Created");
+            responseDTO.setUser_id(userEntity.getId());
+
+            return ResponseEntity.ok(responseDTO);
         } else {
             return new ResponseEntity("It was not possible to create your user", HttpStatus.BAD_REQUEST);
         }
     }
 
-    public ResponseEntity login(LoginDTO loginDTO) {
+    public ResponseEntity<UserResponseDTO> login(LoginDTO loginDTO) {
         Optional<UserEntity> userEntity = userRepository.findByUsernameAndPassword(loginDTO.getUsername(), loginDTO.getPassword());
         if (userEntity.isPresent()) {
-            return new ResponseEntity("Logged",HttpStatus.OK);
+            UserResponseDTO responseDTO = new UserResponseDTO();
+            responseDTO.setMessage("Logged");
+            responseDTO.setUser_id(userEntity.get().getId());
+
+            return ResponseEntity.ok(responseDTO);
         } else {
             return new ResponseEntity("Username or password incorrect", HttpStatus.UNAUTHORIZED);
         }
