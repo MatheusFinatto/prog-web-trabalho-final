@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
 import "../Show/App.css";
 import TodoList from "../Show";
 import Form from "../Form";
-import useFetch from "../../../hooks/useFetch";
 
-export type dbType = {
+export type todoType = {
   id?: string;
   title: string;
   completed: boolean;

@@ -1,14 +1,15 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router";
 
-interface User {
-  username: string;
-}
+export type UserData = {
+  userId: string | null;
+  username: string | null;
+};
 
 interface UserContextValue {
-  user: User | null;
-  login: (username: string) => void;
+  user: UserData;
   logout: () => void;
-  updateUser: (username: string) => void; // Add the updateUser function
+  updateUser: (user: UserData) => void;
 }
 
 const UserContext = createContext<UserContextValue | undefined>(undefined);
@@ -24,23 +25,29 @@ export const useUserContext = (): UserContextValue => {
 export const UserProvider: React.FC<React.PropsWithChildren<object>> = ({
   children,
 }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserData>({ userId: null, username: null });
+  const navigate = useNavigate();
+  const localUser = localStorage.getItem("user");
 
-  const login = (username: string) => {
-    setUser({ username });
-  };
+  useEffect(() => {
+    const userJson: UserData = localUser && JSON.parse(localUser);
+    localUser && userJson.username;
+    setUser(userJson);
+  }, [localUser]);
 
   const logout = () => {
-    setUser(null);
+    setUser({ userId: null, username: null });
+    navigate("/login");
   };
 
-  const updateUser = (username: string) => {
-    setUser({ username });
+  const updateUser = (user: UserData) => {
+    const { userId, username } = user;
+    localStorage.setItem("user", JSON.stringify(user));
+    setUser({ userId, username });
   };
 
   const value: UserContextValue = {
     user,
-    login,
     logout,
     updateUser,
   };

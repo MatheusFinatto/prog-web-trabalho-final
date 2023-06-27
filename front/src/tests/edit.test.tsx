@@ -2,14 +2,14 @@ import { render, screen, fireEvent } from "@testing-library/react";
 
 import { vi } from "vitest";
 import EditModal from "../pages/TodoList/Edit";
-import { dbType } from "../pages/TodoList/Main";
+import { todoType } from "../pages/TodoList/Main";
 
 describe("EditModal", () => {
   const mockIsModalOpen = true;
   const mockSetIsModalOpen = vi.fn();
-  const mockDb: dbType[] = [];
+  const mockDb: todoType[] = [];
   const mockSetDb = vi.fn();
-  const mockItem: dbType = {
+  const mockItem: todoType = {
     id: 1,
     title: "Sample Title",
     completed: false,

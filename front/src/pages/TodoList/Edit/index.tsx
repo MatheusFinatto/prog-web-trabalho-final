@@ -1,17 +1,19 @@
 import { useEffect } from "react";
 import "./styles.css";
-import { dbType } from "../Main";
+import { todoType } from "../Main";
+import useFetch from "../../../hooks/useFetch";
 
 interface EditModalProps {
-  item: dbType;
-  setItem: React.Dispatch<React.SetStateAction<dbType>>;
+  item: todoType;
+  setItem: React.Dispatch<React.SetStateAction<todoType>>;
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  db: dbType[];
+  db: todoType[];
 }
 
 const EditModal = (props: EditModalProps) => {
   const { item, setItem, isModalOpen, setIsModalOpen, db } = props;
+  const { fetchData } = useFetch();
 
   useEffect(() => {
     const handleEscapeKey = (event: KeyboardEvent) => {
@@ -38,25 +40,24 @@ const EditModal = (props: EditModalProps) => {
     setIsModalOpen(false);
   }
 
-  function handleSave() {
-    setTimeout(() => {
-      setItem(item);
-      const updatedDb = db.map((dbItem) => {
-        if (dbItem.id === item.id) {
-          return { ...dbItem, title: item.title };
-        }
-        return dbItem;
-      });
-      //setDb(updatedDb);
-      alert(`${item.title} has been edited successfully!`);
-      setIsModalOpen(false);
-    }, 1000);
+  async function handleSave() {
+    const { id, ...updatedItem } = item;
+    setItem(updatedItem);
+    console.log("🚀 ~ file: index.tsx:49 ~ handleSave ~ item:", updatedItem);
+    await fetchData(
+      `http://localhost:8080/v1/todos/${item.id}`,
+      "PUT",
+      updatedItem
+    );
+    alert(`${item.title} has been edited successfully!`);
+    fetchData("http://localhost:8080/v1/todos", "GET");
+    setIsModalOpen(false);
   }
 
   if (!isModalOpen) return null;
 
   return (
-    <div className={"modal"}>
+    <form className={"modal"} onSubmit={handleSave}>
       <h2>Edit todo</h2>
       <div className="content">
         <input
@@ -66,14 +67,14 @@ const EditModal = (props: EditModalProps) => {
         />
       </div>
       <div className="actions">
-        <button className="toggle-button" onClick={handleSave}>
+        <button className="toggle-button" type="submit">
           Save
         </button>
-        <button className="toggle-button" onClick={handleClose}>
+        <button className="toggle-button" onClick={handleClose} type="button">
           Cancel
         </button>
       </div>
-    </div>
+    </form>
   );
 };
 
