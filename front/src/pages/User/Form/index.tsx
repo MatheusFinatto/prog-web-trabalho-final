@@ -39,6 +39,12 @@ const UserForm: React.FC<FormProps> = ({ text }) => {
           }),
         });
 
+        const userResponse = await res.json();
+        console.log(
+          "🚀 ~ file: index.tsx:43 ~ handleRegister ~ data:",
+          userResponse
+        );
+
         if (!res.ok) {
           throw new Error("Unknown error");
         }
