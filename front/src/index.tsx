@@ -10,8 +10,8 @@ import { UserProvider } from "./contexts/UserContext";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <BrowserRouter>
-    <Navbar />
     <UserProvider>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />

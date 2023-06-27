@@ -1,28 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import "./styles.css";
 
-import { useUserContext } from "../../../contexts/UserContext";
+import { UserData, useUserContext } from "../../../contexts/UserContext";
 import validateForm from "../../../helpers/validateForm";
+import { useNavigate } from "react-router";
 
 interface FormProps {
   text: string;
 }
 
 const UserForm: React.FC<FormProps> = ({ text }) => {
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+
+  const [user, setUser] = useState<UserData>({ userId: null, username: null });
   const { updateUser } = useUserContext();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(""); // Clear previous errors
     if (validateForm({ username, email, password, setError, text })) {
       try {
-        const res = await fetch("http://localhost:3001/api/register", {
+        const res = await fetch("http://localhost:8080/v1/register", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -37,9 +42,7 @@ const UserForm: React.FC<FormProps> = ({ text }) => {
         if (!res.ok) {
           throw new Error("Unknown error");
         }
-        const { token } = await res.json();
-        localStorage.setItem("token", token);
-        updateUser(username);
+        setUser({ userId: "5", username });
       } catch (err) {
         setError("An unexpected error has occurred. Please try again later.");
         console.log(err);
@@ -51,11 +54,53 @@ const UserForm: React.FC<FormProps> = ({ text }) => {
     }
   };
 
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError(""); // Clear previous errors
+    if (validateForm({ username, email, password, setError, text })) {
+      try {
+        const res = await fetch("http://localhost:8080/v1/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username,
+            password,
+          }),
+        });
+
+        if (!res.ok) {
+          throw new Error("Unknown error");
+        }
+
+        //FIXME: get user id from database; ill be mocking it for now with the number '5'
+        setUser({ userId: "5", username });
+        updateUser(user);
+      } catch (err) {
+        setError("An unexpected error has occurred. Please try again later.");
+        console.log(err);
+      } finally {
+        setUsername("");
+        setPassword("");
+      }
+    }
+  };
+
+  useEffect(() => {
+    updateUser(user);
+    user.username && navigate("/");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+
   return (
     <>
       <h1>{text}</h1>
       {error && <span id="error">{error}</span>}
-      <form className="userForm" onSubmit={handleSubmit}>
+      <form
+        className="userForm"
+        onSubmit={text === "Register" ? handleRegister : handleLogin}
+      >
         <div>
           <label htmlFor="username">Username</label>
           <input
@@ -78,7 +123,7 @@ const UserForm: React.FC<FormProps> = ({ text }) => {
         )}
         <div>
           <label htmlFor="password">Password</label>
-          <div>
+          <div className="passwordInput">
             <input
               type={showPassword ? "text" : "password"}
               id="password"
