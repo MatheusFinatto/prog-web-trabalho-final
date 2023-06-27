@@ -2,9 +2,9 @@
 
 ## Contexto
 
-Estamos desenvolvendo uma aplicação web de lista de tarefas que permite que os usuários gerenciem e acompanhem suas tarefas. Precisamos escolher uma pilha front-end que permita um desenvolvimento eficiente, forneça uma interface de usuário robusta e responsiva e permita integração com nossa API back-end. Avaliamos diferentes opções e consideramos fatores como facilidade de uso, experiência do desenvolvedor, suporte da comunidade e compatibilidade do ecossistema.
+Estamos desenvolvendo uma aplicação web de lista de tarefas que permite que os usuários gerenciem e acompanhem suas tarefas. Precisamos escolher uma pilha front-end que permita um desenvolvimento eficiente, forneça uma interface de usuário robusta e responsiva e permita integração com nossa API back-end. Já para o back-end, precisamos escolher tercnologias confiáveis, velozes e robustas para maximizar os resultados que buscamos. Avaliamos diferentes opções e consideramos fatores como facilidade de uso, experiência do desenvolvedor, suporte da comunidade e compatibilidade do ecossistema.
 
-Decidimos usar a seguinte pilha front-end para nossa aplicação de lista de tarefas:
+Baseando-se nisso, decidimos usar a seguinte pilha front-end para nossa aplicação de lista de tarefas:
 
 - Vite: Como ferramenta de compilação, fornecendo tempos rápidos de desenvolvimento e compilação com seu empacotamento nativo baseado em módulos ES.
 - React: Como biblioteca JavaScript para construir a interface do usuário, oferecendo uma abordagem baseada em componentes e um ecossistema vibrante.
