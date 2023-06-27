@@ -50,7 +50,7 @@ const EditModal = (props: EditModalProps) => {
       updatedItem
     );
     alert(`${item.title} has been edited successfully!`);
-    fetchData("http://localhost:8080/v1/todos", "GET");
+    fetchData("http://localhost:8080/v1/todos", "GET", 1);
     setIsModalOpen(false);
   }
 

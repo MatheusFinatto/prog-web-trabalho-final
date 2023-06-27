@@ -8,7 +8,7 @@ const useFetch = () => {
   const fetchData = async (
     url: string,
     method = "GET",
-    body: null | string | todoType = null
+    body: null | string | todoType | number = null
   ) => {
     setLoading(true);
 

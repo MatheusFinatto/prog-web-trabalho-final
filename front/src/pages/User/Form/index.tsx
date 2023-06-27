@@ -39,6 +39,12 @@ const UserForm: React.FC<FormProps> = ({ text }) => {
           }),
         });
 
+        const userResponse = await res.json();
+        console.log(
+          "🚀 ~ file: index.tsx:43 ~ handleRegister ~ data:",
+          userResponse
+        );
+
         if (!res.ok) {
           throw new Error("Unknown error");
         }
@@ -79,6 +85,7 @@ const UserForm: React.FC<FormProps> = ({ text }) => {
         setUser({ userId: "5", username });
         updateUser(user);
         localStorage.setItem("user", JSON.stringify(user));
+        console.log(localStorage.getItem("user"));
       } catch (err) {
         setError("An unexpected error has occurred. Please try again later.");
         console.error(err);

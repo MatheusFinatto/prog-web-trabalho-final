@@ -11,13 +11,13 @@ const TodoList = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   useEffect(() => {
-    fetchData("http://localhost:8080/v1/todos", "GET");
+    fetchData("http://localhost:8080/v1/todos", "GET", 1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const deleteTodo = async (item: todoType) => {
     await fetchData(`http://localhost:8080/v1/todos/${item.id}`, "DELETE");
-    fetchData("http://localhost:8080/v1/todos", "GET");
+    fetchData("http://localhost:8080/v1/todos", "GET", 1);
   };
 
   const setTaskAsCompleted = async (item: todoType) => {
@@ -26,7 +26,7 @@ const TodoList = () => {
       ...updatedItem,
       completed: !item.completed,
     });
-    fetchData("http://localhost:8080/v1/todos", "GET");
+    fetchData("http://localhost:8080/v1/todos", "GET", 1);
   };
 
   const openEditModal = (item: todoType) => {
@@ -62,7 +62,7 @@ const TodoList = () => {
                 <button onClick={() => openEditModal(item)} data-testid="edit">
                   <AiOutlineEdit />
                 </button>
-                <button onClick={(e) => deleteTodo(item)} data-testid="delete">
+                <button onClick={() => deleteTodo(item)} data-testid="delete">
                   <GiSkullCrossedBones />
                 </button>
               </div>
