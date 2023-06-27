@@ -9,15 +9,19 @@ const TodoList = () => {
   const { loading, fetchData, data } = useFetch();
   const [item, setItem] = useState<todoType>({ title: "", completed: false });
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  
+  const getLocalStorageUserId = localStorage.getItem("user");
+  const {userId} = getLocalStorageUserId && JSON.parse(getLocalStorageUserId);
 
   useEffect(() => {
-    fetchData("http://localhost:8080/v1/todos", "GET", 1);
+    
+    userId &&  fetchData(`http://localhost:8080/v1/todos/${userId}`, "GET");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const deleteTodo = async (item: todoType) => {
     await fetchData(`http://localhost:8080/v1/todos/${item.id}`, "DELETE");
-    fetchData("http://localhost:8080/v1/todos", "GET", 1);
+    fetchData(`http://localhost:8080/v1/todos/${userId}`, "GET");
   };
 
   const setTaskAsCompleted = async (item: todoType) => {
@@ -26,7 +30,7 @@ const TodoList = () => {
       ...updatedItem,
       completed: !item.completed,
     });
-    fetchData("http://localhost:8080/v1/todos", "GET", 1);
+    fetchData(`http://localhost:8080/v1/todos/${userId}`, "GET");
   };
 
   const openEditModal = (item: todoType) => {

@@ -15,6 +15,9 @@ const EditModal = (props: EditModalProps) => {
   const { item, setItem, isModalOpen, setIsModalOpen, db } = props;
   const { fetchData } = useFetch();
 
+  const getLocalStorageUserId = localStorage.getItem("user");
+  const {userId} = getLocalStorageUserId && JSON.parse(getLocalStorageUserId);
+
   useEffect(() => {
     const handleEscapeKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -43,14 +46,13 @@ const EditModal = (props: EditModalProps) => {
   async function handleSave() {
     const { id, ...updatedItem } = item;
     setItem(updatedItem);
-    console.log("🚀 ~ file: index.tsx:49 ~ handleSave ~ item:", updatedItem);
     await fetchData(
       `http://localhost:8080/v1/todos/${item.id}`,
       "PUT",
       updatedItem
     );
     alert(`${item.title} has been edited successfully!`);
-    fetchData("http://localhost:8080/v1/todos", "GET", 1);
+    fetchData(`http://localhost:8080/v1/todos/${userId}`, "GET");
     setIsModalOpen(false);
   }
 

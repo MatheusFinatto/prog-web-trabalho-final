@@ -6,9 +6,12 @@ import useFetch from "../../../hooks/useFetch";
 const Form = () => {
   const [todo, setTodo] = useState("");
   const { fetchData } = useFetch();
+  const getLocalStorageUserId = localStorage.getItem("user");
+  const {userId} = getLocalStorageUserId && JSON.parse(getLocalStorageUserId);
+
 
   //TODO: Make e.preventDefaeult and refetch todos without refreshing
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     // e.preventDefault();
 
     if (todo.toLowerCase() === "gandalf") {
@@ -16,8 +19,10 @@ const Form = () => {
       return;
     }
 
-    const newTodo = { title: todo, completed: false };
-    fetchData("http://localhost:8080/v1/todos", "POST", newTodo);
+    const newTodo = { title: todo, completed: false, user_id: userId };
+    await fetchData("http://localhost:8080/v1/todos", "POST", newTodo);
+    fetchData(`http://localhost:8080/v1/todos/${userId}`, "GET");
+
 
     setTodo(""); // Reset the input field after submitting
   };

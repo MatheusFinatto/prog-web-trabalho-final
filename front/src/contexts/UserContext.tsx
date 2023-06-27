@@ -2,7 +2,7 @@ import React, { createContext, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router";
 
 export type UserData = {
-  userId: string | null;
+  userId: number | null;
   username: string | null;
 };
 

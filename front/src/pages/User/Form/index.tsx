@@ -39,16 +39,12 @@ const UserForm: React.FC<FormProps> = ({ text }) => {
           }),
         });
 
-        const userResponse = await res.json();
-        console.log(
-          "🚀 ~ file: index.tsx:43 ~ handleRegister ~ data:",
-          userResponse
-        );
+        const userResponse: {message: string, user_id: number} = await res.json();
 
         if (!res.ok) {
           throw new Error("Unknown error");
         }
-        setUser({ userId: "5", username });
+        setUser({ userId: userResponse.user_id, username });
         localStorage.setItem("user", JSON.stringify(user));
       } catch (err) {
         setError("An unexpected error has occurred. Please try again later.");
@@ -77,12 +73,15 @@ const UserForm: React.FC<FormProps> = ({ text }) => {
           }),
         });
 
+        const userData: {message: string, user_id: number}  = await res.json()
+
+
         if (!res.ok) {
           throw new Error("Unknown error");
         }
 
         //FIXME: get user id from database; ill be mocking it for now with the number '5'
-        setUser({ userId: "5", username });
+        setUser({ userId: userData.user_id, username });
         updateUser(user);
         localStorage.setItem("user", JSON.stringify(user));
         console.log(localStorage.getItem("user"));
