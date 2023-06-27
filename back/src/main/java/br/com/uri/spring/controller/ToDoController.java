@@ -41,8 +41,8 @@ public class ToDoController {
         return userService.login(loginDTO);
     }
 
-    @GetMapping("todos")
-    public List<ToDoEntity> getTodos(@RequestBody Integer user_id) {
+    @GetMapping("todos/{id}")
+    public List<ToDoEntity> getTodos(@PathVariable Integer user_id) {
 
         return toDoService.getAllTodos(user_id);
     }
