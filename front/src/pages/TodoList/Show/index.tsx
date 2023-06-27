@@ -1,4 +1,4 @@
-import { dbType } from "../Main";
+import { todoType } from "../Main";
 import { AiOutlineEdit, AiOutlineCheck } from "react-icons/ai";
 import { GiSkullCrossedBones } from "react-icons/gi";
 import EditModal from "../Edit";
@@ -7,30 +7,29 @@ import useFetch from "../../../hooks/useFetch";
 
 const TodoList = () => {
   const { loading, fetchData, data } = useFetch();
-  const [item, setItem] = useState<dbType>({ title: "", completed: false });
+  const [item, setItem] = useState<todoType>({ title: "", completed: false });
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   useEffect(() => {
     fetchData("http://localhost:8080/v1/todos", "GET");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const deleteTodo = (item: dbType) => {
-    fetchData(`http://localhost:8080/v1/todos/${item.id}`, "DELETE");
+  const deleteTodo = async (item: todoType) => {
+    await fetchData(`http://localhost:8080/v1/todos/${item.id}`, "DELETE");
+    fetchData("http://localhost:8080/v1/todos", "GET");
   };
 
-  /*  const setTaskAsCompleted = (item: dbType) => {
-    setDb(
-      db.map((dbItem: dbType) => {
-        if (dbItem.id === item.id) {
-          return { ...dbItem, completed: !dbItem.completed };
-        }
-        return dbItem;
-      })
-    );
+  const setTaskAsCompleted = async (item: todoType) => {
+    const { id, ...updatedItem } = item;
+    await fetchData(`http://localhost:8080/v1/todos/${item.id}`, "PUT", {
+      ...updatedItem,
+      completed: !item.completed,
+    });
+    fetchData("http://localhost:8080/v1/todos", "GET");
   };
-*/
 
-  const openEditModal = (item: dbType) => {
+  const openEditModal = (item: todoType) => {
     setItem(item);
     setIsEditModalOpen(true);
   };
@@ -54,7 +53,7 @@ const TodoList = () => {
               </span>
               <div>
                 <button
-                  //onClick={() => setTaskAsCompleted(item)}
+                  onClick={() => setTaskAsCompleted(item)}
                   data-testid="check"
                 >
                   <AiOutlineCheck />

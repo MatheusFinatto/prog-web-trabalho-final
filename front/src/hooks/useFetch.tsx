@@ -1,11 +1,15 @@
 import { useState } from "react";
-import { dbType } from "../pages/TodoList/Main";
+import { todoType } from "../pages/TodoList/Main";
 
 const useFetch = () => {
-  const [data, setData] = useState<dbType[]>([]);
+  const [data, setData] = useState<todoType[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const fetchData = async (url: string, method = "GET", body = null) => {
+  const fetchData = async (
+    url: string,
+    method = "GET",
+    body: null | string | todoType = null
+  ) => {
     setLoading(true);
 
     const options = {
@@ -15,14 +19,17 @@ const useFetch = () => {
       },
       body: body ? JSON.stringify(body) : null,
     };
+    try {
+      const response = await fetch(url, options);
 
-    const response = await fetch(url, options);
+      const responseData = await response.json();
 
-    const responseData = await response.json();
-
-    setData(responseData);
-
-    setLoading(false);
+      setData(responseData);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return { data, loading, fetchData };

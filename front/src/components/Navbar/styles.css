@@ -4,8 +4,8 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 0;
-  background-color: #222;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  background-color: #202020;
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0);
   > div {
     margin: 0 70px;
     > a {

@@ -1,32 +1,25 @@
 import { useState } from "react";
 import "./styles.css";
-import { dbType } from "../Main";
-
-function createTodo(todo: dbType) {
-  fetch("http://localhost:8080/v1/todos", {
-    method: "POST",
-    body: JSON.stringify(todo),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  }).then((res) => {
-    console.log(res);
-  });
-}
+import { todoType } from "../Main";
+import useFetch from "../../../hooks/useFetch";
 
 const Form = () => {
   const [todo, setTodo] = useState("");
+  const { fetchData } = useFetch();
 
+  //TODO: Make e.preventDefaeult and refetch todos without refreshing
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("hey");
+    // e.preventDefault();
+
     if (todo.toLowerCase() === "gandalf") {
       window.location.href = "https://www.youtube.com/watch?v=Sagg08DrO5U";
-    } else {
-      const newTodo = { title: todo, completed: false };
-      createTodo(newTodo);
-      setTodo(""); // Reset the input field after submitting
+      return;
     }
+
+    const newTodo = { title: todo, completed: false };
+    fetchData("http://localhost:8080/v1/todos", "POST", newTodo);
+
+    setTodo(""); // Reset the input field after submitting
   };
 
   return (
