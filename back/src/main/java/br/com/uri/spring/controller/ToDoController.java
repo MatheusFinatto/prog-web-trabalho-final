@@ -11,6 +11,7 @@ import br.com.uri.spring.service.UserService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -41,10 +42,10 @@ public class ToDoController {
         return userService.login(loginDTO);
     }
 
-    @GetMapping("todos/{id}")
-    public List<ToDoEntity> getTodos(@PathVariable Integer user_id) {
+    @GetMapping("/todos/{id}")
+    public List<ToDoEntity> getTodos(@PathVariable Integer id) {
 
-        return toDoService.getAllTodos(user_id);
+        return toDoService.getAllTodos(id);
     }
 
     // Cria um novo To Do
