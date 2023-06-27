@@ -11,7 +11,7 @@ const Navbar = () => {
       <div>
         <NavLink to="/">{texto}</NavLink>
       </div>
-      {user.username ? (
+      {user && user.username ? (
         <div>
           <span onClick={logout} style={{ cursor: "pointer", color: "white" }}>
             Logout
