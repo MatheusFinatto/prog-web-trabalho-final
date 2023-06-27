@@ -43,9 +43,10 @@ const UserForm: React.FC<FormProps> = ({ text }) => {
           throw new Error("Unknown error");
         }
         setUser({ userId: "5", username });
+        localStorage.setItem("user", JSON.stringify(user));
       } catch (err) {
         setError("An unexpected error has occurred. Please try again later.");
-        console.log(err);
+        console.error(err);
       } finally {
         setUsername("");
         setEmail("");
@@ -77,9 +78,10 @@ const UserForm: React.FC<FormProps> = ({ text }) => {
         //FIXME: get user id from database; ill be mocking it for now with the number '5'
         setUser({ userId: "5", username });
         updateUser(user);
+        localStorage.setItem("user", JSON.stringify(user));
       } catch (err) {
         setError("An unexpected error has occurred. Please try again later.");
-        console.log(err);
+        console.error(err);
       } finally {
         setUsername("");
         setPassword("");

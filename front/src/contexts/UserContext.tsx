@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router";
 
 export type UserData = {
@@ -19,7 +19,6 @@ export const useUserContext = (): UserContextValue => {
   if (!context) {
     throw new Error("useUser must be used within a UserProvider");
   }
-  console.log(context.user);
   return context;
 };
 
@@ -28,6 +27,13 @@ export const UserProvider: React.FC<React.PropsWithChildren<object>> = ({
 }) => {
   const [user, setUser] = useState<UserData>({ userId: null, username: null });
   const navigate = useNavigate();
+  const localUser = localStorage.getItem("user");
+
+  useEffect(() => {
+    const userJson: UserData = localUser && JSON.parse(localUser);
+    localUser && userJson.username;
+    setUser(userJson);
+  }, [localUser]);
 
   const logout = () => {
     setUser({ userId: null, username: null });
@@ -36,7 +42,7 @@ export const UserProvider: React.FC<React.PropsWithChildren<object>> = ({
 
   const updateUser = (user: UserData) => {
     const { userId, username } = user;
-    console.log(user.username);
+    localStorage.setItem("user", JSON.stringify(user));
     setUser({ userId, username });
   };
 

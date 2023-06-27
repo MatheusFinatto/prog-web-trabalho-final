@@ -6,7 +6,6 @@ const texto = "<TodoList />";
 
 const Navbar = () => {
   const { user, logout } = useUserContext();
-  console.log("🚀 ~ file: index.tsx:9 ~ Navbar ~ user:", user);
   return (
     <nav>
       <div>
