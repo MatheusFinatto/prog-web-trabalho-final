@@ -4,6 +4,7 @@ package br.com.uri.spring.controller;
 import br.com.uri.spring.dto.LoginDTO;
 import br.com.uri.spring.dto.ToDoDTO;
 import br.com.uri.spring.dto.UserDTO;
+import br.com.uri.spring.dto.UserResponseDTO;
 import br.com.uri.spring.entities.ToDoEntity;
 import br.com.uri.spring.service.ToDoService;
 import br.com.uri.spring.service.UserService;
@@ -28,22 +29,22 @@ public class ToDoController {
 
     // Cria um novo usário
     @PostMapping("/register")
-    public ResponseEntity<Void> postRegister(@RequestBody
+    public ResponseEntity<UserResponseDTO> postRegister(@RequestBody
                          @Valid UserDTO userDTO) {
         return userService.saveObject(userDTO);
     }
 
     // Efetua o login do usuário
     @PostMapping("/login")
-    public ResponseEntity<Void> postLogin(@RequestBody
+    public ResponseEntity<UserResponseDTO> postLogin(@RequestBody
                          @Valid LoginDTO loginDTO) {
         return userService.login(loginDTO);
     }
 
     @GetMapping("todos")
-    public List<ToDoEntity> getTodos() {
+    public List<ToDoEntity> getTodos(@RequestBody Integer user_id) {
 
-        return toDoService.getAllTodos();
+        return toDoService.getAllTodos(user_id);
     }
 
     // Cria um novo To Do
