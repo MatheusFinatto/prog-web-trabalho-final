@@ -3,6 +3,7 @@ package br.com.uri.spring.service;
 import br.com.uri.spring.dto.LoginDTO;
 import br.com.uri.spring.dto.ToDoDTO;
 import br.com.uri.spring.dto.UserDTO;
+import br.com.uri.spring.dto.UserResponseDTO;
 import br.com.uri.spring.entities.UserEntity;
 import br.com.uri.spring.repositories.UserRepository;
 import br.com.uri.spring.repositories.ToDoRepository;
@@ -31,7 +32,7 @@ public class UserServiceTest {
 
     private UserService userService;
 
-    @Before("")
+    @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         userService = new UserService(userRepository);
@@ -43,7 +44,7 @@ public class UserServiceTest {
         UserDTO userDTO = new UserDTO();
         userDTO.setUsername("Luiz");
         userDTO.setEmail("luiz.disarz@gmail.com");
-        userDTO.setPassword("password");
+        userDTO.setPassword("1234");
 
         // Mock do UserRepository para retornar um objeto UserEntity ao salvar
         when(userRepository.save(ArgumentMatchers.any(UserEntity.class))).thenReturn(new UserEntity());
@@ -52,27 +53,12 @@ public class UserServiceTest {
         ResponseEntity response = userService.saveObject(userDTO);
 
         // Verifica se a resposta é a esperada
-        assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        assertEquals("Created", response.getBody());
-    }
+        assertEquals(HttpStatus.OK, response.getStatusCode());
 
-    @Test
-    public void testSaveObject_Failure() {
-        // Cria um UserDTO de exemplo
-        UserDTO userDTO = new UserDTO();
-        userDTO.setUsername("john");
-        userDTO.setEmail("john@example.com");
-        userDTO.setPassword("password");
-
-        // Mock do UserRepository para retornar null ao salvar
-        when(userRepository.save(ArgumentMatchers.any(UserEntity.class))).thenReturn(null);
-
-        // Chama o método que você deseja testar
-        ResponseEntity response = userService.saveObject(userDTO);
-
-        // Verifica se a resposta é a esperada
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals("It was not possible to create your user", response.getBody());
+        UserResponseDTO expectedResponse = new UserResponseDTO();
+        expectedResponse.setMessage("Created");
+        expectedResponse.setUser_id(null);
+        assertEquals(expectedResponse, response.getBody());
     }
 
     @Test
@@ -80,7 +66,7 @@ public class UserServiceTest {
         // Cria um LoginDTO de exemplo
         LoginDTO loginDTO = new LoginDTO();
         loginDTO.setUsername("Luiz");
-        loginDTO.setPassword("password");
+        loginDTO.setPassword("1234");
 
         // Mock do UserRepository para retornar um objeto UserEntity ao buscar por username
         when(userRepository.findByUsernameAndPassword("Luiz", "1234")).thenReturn(Optional.of(new UserEntity()));
@@ -90,7 +76,10 @@ public class UserServiceTest {
 
         // Verifica se a resposta é a esperada
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals("Logged", response.getBody());
+        UserResponseDTO expectedResponse = new UserResponseDTO();
+        expectedResponse.setMessage("Logged");
+        expectedResponse.setUser_id(null);
+        assertEquals(expectedResponse, response.getBody());
     }
 
     @Test

@@ -37,7 +37,10 @@ public class UserService {
 
             return ResponseEntity.ok(responseDTO);
         } else {
-            return new ResponseEntity("It was not possible to create your user", HttpStatus.BAD_REQUEST);
+            UserResponseDTO userResponseDTO = new UserResponseDTO();
+            userResponseDTO.setMessage("It was not possible to create your user");
+            userResponseDTO.setUser_id(null);
+            return new ResponseEntity(userResponseDTO, HttpStatus.BAD_REQUEST);
         }
     }
 

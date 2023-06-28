@@ -16,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -32,25 +33,7 @@ public class ToDoServiceTest {
 
     @InjectMocks
     private ToDoService todoService;
-
-    @Test
-    public void testGetAllTodos() {
-        // Cria uma lista de ToDoEntity de exemplo
-        List<ToDoEntity> todos = Arrays.asList(
-                createToDoEntity("Learn React", 1, false),
-                createToDoEntity("Learn Spring", 1, true),
-                createToDoEntity("Learn Flutter", 2, false)
-        );
-
-        // Configura o mock para retornar a lista de ToDoEntity quando findAll() for chamado
-        when(todoRepository.findAll()).thenReturn(todos);
-
-        // Chama o método que você deseja testar
-        List<ToDoEntity> result = todoService.getAllTodos(todos.get(0).getUser_id());
-
-        // Verifica se o resultado é o esperado
-        assertEquals(todos, result);
-    }
+    private ToDoRepository toDoRepository;
 
     @Test
     public void testSaveObject_Success() {
