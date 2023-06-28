@@ -10,14 +10,16 @@ const Form = () => {
   const {userId} : {userId: string | null} = (getLocalStorageUserId && JSON.parse(getLocalStorageUserId)) || null;
 
 
+  
   //TODO: Make e.preventDefaeult and refetch todos without refreshing
   const handleSubmit = async (e: React.FormEvent) => {
-    // e.preventDefault();
-
     if (todo.toLowerCase() === "gandalf") {
+      e.preventDefault();
       window.location.href = "https://www.youtube.com/watch?v=Sagg08DrO5U";
       return;
     }
+    
+    
 
     const newTodo = { title: todo, completed: false, user_id: userId };
     await fetchData("http://localhost:8080/v1/todos", "POST", newTodo);
