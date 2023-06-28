@@ -10,8 +10,8 @@ const TodoList = () => {
   const [item, setItem] = useState<todoType>({ title: "", completed: false });
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   
-  const getLocalStorageUserId = localStorage.getItem("user");
-  const {userId} = getLocalStorageUserId && JSON.parse(getLocalStorageUserId);
+  const getLocalStorageUserId = localStorage.getItem("user") || JSON.stringify({userId: null});
+  const {userId} : {userId: string | null} = (getLocalStorageUserId && JSON.parse(getLocalStorageUserId)) || null;
 
   useEffect(() => {
     

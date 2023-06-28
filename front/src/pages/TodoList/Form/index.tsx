@@ -6,8 +6,8 @@ import useFetch from "../../../hooks/useFetch";
 const Form = () => {
   const [todo, setTodo] = useState("");
   const { fetchData } = useFetch();
-  const getLocalStorageUserId = localStorage.getItem("user");
-  const {userId} = getLocalStorageUserId && JSON.parse(getLocalStorageUserId);
+  const getLocalStorageUserId = localStorage.getItem("user") || JSON.stringify({userId: null});
+  const {userId} : {userId: string | null} = (getLocalStorageUserId && JSON.parse(getLocalStorageUserId)) || null;
 
 
   //TODO: Make e.preventDefaeult and refetch todos without refreshing
@@ -22,7 +22,6 @@ const Form = () => {
     const newTodo = { title: todo, completed: false, user_id: userId };
     await fetchData("http://localhost:8080/v1/todos", "POST", newTodo);
     fetchData(`http://localhost:8080/v1/todos/${userId}`, "GET");
-
 
     setTodo(""); // Reset the input field after submitting
   };

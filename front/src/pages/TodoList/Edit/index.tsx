@@ -15,8 +15,8 @@ const EditModal = (props: EditModalProps) => {
   const { item, setItem, isModalOpen, setIsModalOpen, db } = props;
   const { fetchData } = useFetch();
 
-  const getLocalStorageUserId = localStorage.getItem("user");
-  const {userId} = getLocalStorageUserId && JSON.parse(getLocalStorageUserId);
+  const getLocalStorageUserId = localStorage.getItem("user") || JSON.stringify({userId: null});
+  const {userId} : {userId: string | null} = (getLocalStorageUserId && JSON.parse(getLocalStorageUserId)) || null;
 
   useEffect(() => {
     const handleEscapeKey = (event: KeyboardEvent) => {
