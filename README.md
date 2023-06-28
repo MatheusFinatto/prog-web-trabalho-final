@@ -1,5 +1,7 @@
 # ADR: Todo-List
 
+## Integrantes: Luiz Disarz e Matheus Finatto
+
 ## Contexto
 
 Estamos desenvolvendo uma aplicação web de lista de tarefas que permite que os usuários gerenciem e acompanhem suas tarefas. Precisamos escolher uma pilha front-end que permita um desenvolvimento eficiente, forneça uma interface de usuário robusta e responsiva e permita integração com nossa API back-end. Já para o back-end, precisamos escolher tercnologias confiáveis, velozes e robustas para maximizar os resultados que buscamos. Avaliamos diferentes opções e consideramos fatores como facilidade de uso, experiência do desenvolvedor, suporte da comunidade e compatibilidade do ecossistema.
