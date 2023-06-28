@@ -1,6 +1,7 @@
 package br.com.uri.spring.service;
 
 import br.com.uri.spring.dto.ToDoDTO;
+import br.com.uri.spring.dto.UserResponseDTO;
 import br.com.uri.spring.entities.ToDoEntity;
 import br.com.uri.spring.repositories.UserRepository;
 import br.com.uri.spring.repositories.ToDoRepository;
@@ -38,7 +39,10 @@ public class ToDoService {
         if (todoEntity != null){
             return new ResponseEntity("Created", HttpStatus.CREATED);
         } else {
-            return new ResponseEntity("It was not possible to create your to do", HttpStatus.BAD_REQUEST);
+            UserResponseDTO userResponseDTO = new UserResponseDTO();
+            userResponseDTO.setMessage("It was not possible to create your user");
+            userResponseDTO.setUser_id(null);
+            return new ResponseEntity(userResponseDTO, HttpStatus.BAD_REQUEST);
         }
     }
 
