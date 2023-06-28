@@ -1,5 +1,7 @@
 # ADR: Todo-List
 
+## Integrantes: Luiz Disarz e Matheus Finatto
+
 ## Contexto
 
 Estamos desenvolvendo uma aplicação web de lista de tarefas que permite que os usuários gerenciem e acompanhem suas tarefas. Precisamos escolher uma pilha front-end que permita um desenvolvimento eficiente, forneça uma interface de usuário robusta e responsiva e permita integração com nossa API back-end. Já para o back-end, precisamos escolher tercnologias confiáveis, velozes e robustas para maximizar os resultados que buscamos. Avaliamos diferentes opções e consideramos fatores como facilidade de uso, experiência do desenvolvedor, suporte da comunidade e compatibilidade do ecossistema.
@@ -41,6 +43,12 @@ As pilhas de tecnologias alternativas consideradas foram, para front-end:
 E para back-end:
 - Express.js com MongoDB: Uma combinação popular para o desenvolvimento de APIs em Node.js, com o MongoDB como banco de dados NoSQL. Essa alternativa oferece flexibilidade e escalabilidade, especialmente para aplicativos com requisitos de dados não estruturados. Ficou em segundo lugar na lista de tecnlogias, mas no final, foi optado por seguir com Spring + Postgres por questões como possível necessidade de auxilio advindo do professor.
 - Django com SQLite: O Django é um framework Python robusto para desenvolvimento web, e o SQLite é uma opção leve de banco de dados relacional. Essa combinação é fácil de usar e adequada para projetos menores ou de escopo limitado. Não foi escolhido pela falta de familiaridade com a ferramenta, e pelo projeto integrador ter sido feito com Flask, um framework de Python e SQLite.
+
+## Como executar
+
+- Banco de Dados: É necessário criar uma database chamada de `todos` em postgres. Caso sejam necessárias, as credências e demais específicações estão dentro do arquivo application.yaml (back/src/main/resources/application.yaml);
+- Backend: É necessário o Java, e recomendado o uso de uma IDE especializada, como IntelliJ. Com ela, basta executar o arquivo Application.java (back/src/main/java/br/com/uri/spring/Application.java) (ficará exposto em http:/localhost:8080/v1). Para rodar os testes unitários do backend, basta executar os testes a partir da pasta java dentro de test (back/src/test/java);
+- Frontend: Para executar os testes unitários basta executar o comando `npm test` e para executar o servidor frontent o comando `npm run dev` é necessário (ficará exposto em http:/localhost:5173).
 
 ## Referências
 
